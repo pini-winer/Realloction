@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Liste des Clients">
+        <div class="slds-m-around_medium">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Segment</th>
+                        <th>Nom du Propriétaire</th>
+                        <th>Nom du Magasin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Utilisez une directive de répétition pour parcourir les données -->
+                    <template for:each={mydata} for:item="record" for:index="index">
+                        <tr key={record.Id}>
+                            <td>{record.Id}</td>
+                            <td>{record.LastName}</td>
+                            <td>{record.FirstName}</td>
+                            <td>{record.PersonEmail}</td>
+                            <td>{record.Segment__c}</td>
+                            <td>{record.Owner.LastName} {record.Owner.FirstName}</td>
+                            <td>{record.Main_Boutique__r.Nom_du_magasin__c}</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+            <div class="slds-m-top_medium">
+                <lightning-button label="Obtenir les ID sélectionnés" onclick={handleGetSelectedIds}></lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,181 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-card>
+    
+      
+        <lightning-card>
+          <c-generic-header header-title=" Select Sellers" is-heading1 show-icon icon-name="standard:client"></c-generic-header>
+
+          <div class="slds-grid slds-gutters">
+            <div class="slds-col" onmouseleave={mousehandler}>
+                    <c-complete-combobox-child
+                        picklistinput={picklistCountryInput}
+                        label='Country'
+                        onselectionchange={handleCountrySelectionChange}
+                        isdisabled = {isCountriesDisabled}
+                        onsearch={handleSearch}
+                        onselection={handleSelection}
+                                               
+                    ></c-complete-combobox-child>
+            </div>
+            
+            <div class="slds-col" onmouseleave={mousehandler}>
+                    <c-complete-combobox-child
+                        picklistinput={picklistStorsInput}
+
+                        label='Stors'
+                        onselectionchange={handleStoreSelectionChange}
+                        isdisabled={isStoresDisabled}
+                        onsearch={handleSearch}
+                        onselection={handleSelection}
+                       
+                    ></c-complete-combobox-child>
+            </div>
+            <div  class="slds-col" onmouseleave={mousehandler}>
+                    <c-complete-combobox-child
+                        picklistinput={picklistOwnersInput}
+                        label='Sellers'
+                        onselectionchange={handleUsersSelectionChange}
+                        isdisabled = {isOwnersDisabled}
+                        onsearch={handleSearch}
+                        onselection={handleSelection}
+                       
+                    ></c-complete-combobox-child>
+            </div>
+            
+        </div>
+        </lightning-card>
+
+        <lightning-card>
+          <div>
+            <c-generic-header header-title="Accounts table" is-heading1 show-icon icon-name="standard:multi_select_checkbox"></c-generic-header>
+          </div>
+          <div   class="slds-grid slds-wrap">
+            
+            <div  class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_8-of-12 tableBackground">
+              <div class="slds-grid slds-wrap"  style="background-color:rgb(208, 209, 209); height: 100px;">
+                
+                <lightning-input lwc:if={showTable} style="padding: 27px;" class="slds-large-size_2-of-12" type="search" label="Search" onchange={handleSearchTable}></lightning-input>
+                <div lwc:if= {isSelectAll} style="height: 5px; padding: 27px; padding-top: 75px; color:rgb(21, 64, 172);" class="slds-large-size_2-of-12" onclick={handleClickSelectAll}>Select All Records</div>
+
+              </div>           
+              <div lwc:if={showTable}  >
+                
+                <!-- key-field="dataFetch.Id" -->
+                <div  style="background-color:rgb(208, 209, 209); height: 400px; border: 2px solid rgb(169, 173, 169)">
+                  <lightning-datatable
+                  columns={columns}
+                  show-row-number-column
+                  key-field="Id"
+                  data={dataFetch}
+                  onrowselection={getSelectedName}
+                  default-sort-direction={defaultSortDirection}
+                  sorted-direction={sortDirection}
+                  sorted-by={sortedBy}
+                  onsort={onHandleSort}
+                  enable-infinite-loading
+                  onloadmore={loadMoreData}
+                  ></lightning-datatable>
+
+                </div>       
+                <div if:true={casesSpinner} class="slds-spinner_inline spinner-padding">
+                  <lightning-spinner variant="brand" 
+                                     alternative-text="Loading Cases"     
+                                     size="medium">
+                  </lightning-spinner>
+                </div>
+                  
+                </div>
+
+            
+             
+              </div>
+            <div class="slds-col slds-size_1-of-1 slds-medium-size_6-of-12 slds-large-size_4-of-12">
+
+              <c-generic-header header-title="New Owner" is-heading3 show-icon icon-name="standard:product_request_line_item"></c-generic-header>
+
+              <div class="slds-col" onmouseleave={mousehandler}>
+                    <c-complete-combobox-child
+                        picklistinput={picklistCountryInput}
+                        label='Country'
+                        onselectionchange={handleCountryRealloction}
+                        isdisabled = {isCountriesDisabled}
+                        onsearch={handleSearch}
+                        onselection={handleSelection}
+                       
+                    ></c-complete-combobox-child>
+            </div>
+
+            <div class="slds-col" onmouseleave={mousehandler}>
+              <!-- Include the child component -->
+                  <c-complete-combobox-child
+                      picklistinput={picklistStorsRealloction}
+                      label='Store'
+                      onselectionchange={handleStoreRealloction}
+                      isdisabled = {isStoresRealloctionDisabled}
+                      onsearch={handleSearch}
+                      onselection={handleSelection}
+                      
+                  ></c-complete-combobox-child>
+            </div>
+              
+            
+              <lightning-card >
+                  <div class="slds-p-around_medium">
+                      <template for:each={picklistOwnersRealloction} for:item="seller">
+                          <c-seller-card 
+                          key={seller.Id} 
+                          sellerchosen={sellerChosen} 
+                          seller={seller}
+                          onselectionchange={handleSellerChosen}
+                          ></c-seller-card>
+                      </template>
+                  </div>
+              </lightning-card>
+          
+            
+          
+              <button type="button" style="margin: 6%;" class="slds-button slds-button_brand" onclick={openModal}>Reallocations</button>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <span class="close" onclick={closeModal}>&times;</span>
+                  <p>Are you sure you want to reallocate?</p>
+                  <button onclick={handleYes}>Yes</button>
+                  <button onclick={closeModal}>Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </lightning-card>
+      
+  </lightning-card>
+
+
+
+
+
+
+
+
+  
+    
+    
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <h1>Are you sure you want to reallocate?</h1>
+                    
+                </div>
+ 
+                 <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">Yes</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+ 
+
+</template>

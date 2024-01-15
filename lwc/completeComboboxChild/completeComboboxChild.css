@@ -1,0 +1,27 @@
+/* Custom styling for the Lightning web component */
+
+.search-input {
+    width: 100%;
+}
+
+.select-clear-section {
+    margin-top: 1rem;
+}
+
+.custom-dropdown {
+    
+}
+
+.custom-checkbox {
+    margin-top: 0.25rem;
+}
+
+.dropdown-container {
+    position: absolute;
+    width:92%;
+    z-index: 1000;
+    background-color: #ffffff;
+    border: 1px solid #5588e8;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+

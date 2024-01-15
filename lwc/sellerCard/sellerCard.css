@@ -1,0 +1,50 @@
+.seller-card {
+
+margin: 10px;
+border: #5a5555 1px solid;
+border-radius: 5px;
+padding: 16px;
+}
+
+
+
+.slds-grid {
+    display: flex;
+    
+    
+}
+
+.seller-info {
+    display: flex;
+   
+    
+}
+
+.seller-info p {
+    font-size: large;
+    margin: 0;
+    padding-left: 0; 
+    padding-bottom: 2px;
+}
+
+.chart-icon {
+    position: absolute;
+    right: 4px;
+    padding-right: 22px;
+    cursor: pointer;
+}
+
+.seller-store  {
+    
+    padding-left: 33px;
+   
+}
+.seller-store p  {
+    display: inline-block;
+    border: #5a5555 1px solid;
+    border-radius: 5px;
+    margin-top: 6px;
+    padding: 3px;
+   
+}
+

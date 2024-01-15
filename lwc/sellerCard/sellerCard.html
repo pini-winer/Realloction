@@ -1,0 +1,27 @@
+<template>
+    <div  class="seller-card">
+        <lightning-card  >
+            <div  class="slds-grid">
+                <lightning-input 
+                type="radio"
+                name="sellerSelection"  
+                checked={isSelected} 
+                onchange={handleSelection} 
+                main_store={seller.main_store_Id} 
+                value={seller.Id}
+                ></lightning-input>
+                <div class="seller-info">
+                    <p> {seller.Name}</p>
+                    <div  class="chart-icon ">
+                        <lightning-icon icon-name="utility:warning" size="small"></lightning-icon>
+                    </div>
+                    
+                </div>
+            </div>
+            <div   class="seller-store">
+                
+                <p> {seller.country} - {seller.main_store} </p>
+            </div>
+        </lightning-card>
+    </div>
+</template>

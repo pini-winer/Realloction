@@ -1,0 +1,46 @@
+<template>
+	<lightning-card>
+		<div class="slds-m-left_large slds-m-right_large" onmouseleave={mousehandler} >
+
+			<lightning-input class="custom-input" type="search" label={label} onchange={handleSearch} value={searchTerm}
+				onblur={blurhandler} onfocusout={focuhandler} onclick={clickhandler} placeholder={itemcounts} disabled={isdisabled}>
+			</lightning-input>
+
+			<template if:true={showDropdown}>
+				<div class="slds-box_border dropdown-container" >
+					<ul class="dropdown-list slds-dropdown_length-7 slds-p-left_medium">
+						<div class="slds-grid slds-wrap">
+							<template if:true={showselectall}>
+								<div class="slds-col slds-large-size_10-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+									<a href="javascript.void(0)" onclick={selectall}>Select-All</a>
+								</div>
+								<div class="slds-col slds-large-size_2-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+									<div class="slds-float_right" style="white-space: nowrap;">
+										<a href="javascript.void(0)" onclick={handleclearall}>Clear-All</a>
+									</div>
+								</div>
+							</template>
+							<template if:false={showselectall}>
+								<div class="slds-col slds-large-size_10-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+								</div>
+								<div class="slds-col slds-large-size_2-of-12 slds-medium-size_1-of-12 slds-size_1-of-12">
+									<div class="slds-float_right">
+										<a href="javascript.void(0)" onclick={handleclearall}></a>
+									</div>
+								</div>
+							</template>
+						</div>
+						<template for:each={filteredResults} for:item="item">
+							<li key={item.Id} class="dropdown-item" >
+								<lightning-input type="checkbox" checked={item.isChecked} label={item.Name}
+									value={item.Id} onchange={handleSelection}>
+								</lightning-input>
+							</li>
+						</template>
+					</ul>
+				</div>
+			</template>
+
+		</div>
+	</lightning-card>
+</template>
